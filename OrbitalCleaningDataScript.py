@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Load Gaia Orbital Solutions data
-df = pd.read_csv('nss_orbital_results_2.csv')
+df = pd.read_csv('data/nss_orbital_results_2.csv')
 
 # 1. Remove rows of missing or unrealistic parallax values
 df = df[df['parallax'] > 0]
@@ -28,4 +28,4 @@ df = df[(df['ruwe'] > 1.4) & (df['ruwe'] < 4.0)]
 df['wobble_amplitude'] = np.sqrt(df['a_thiele_innes']**2 + df['b_thiele_innes']**2)
 
 # Save cleaned data to a new CSV file
-df.to_csv('cleaned_nss_orbital_results.csv', index=False)
+df.to_csv('data/cleaned_nss_orbital_results.csv', index=False)
