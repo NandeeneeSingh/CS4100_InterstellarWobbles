@@ -83,8 +83,8 @@ def main():
         [print(f"After efficiency >= 0.2: {len(df)}")]
 
     if "significance" in df.columns:
-        df = df[df["significance"] >= 40]
-        [print(f"After significance >= 40: {len(df)}")]
+        df = df[df["significance"] >= 10]
+        [print(f"After significance >= 10: {len(df)}")]
 
     if "period" in df.columns:
         df = df[df["period"].between(2, 1000)]
