@@ -25,4 +25,5 @@ htmlcov/
 
 # csv/png files
 data/sb2_example_rv_curve.png
+data/sb2_forward_model_results.csv
 data/sb2_cleaned.csv

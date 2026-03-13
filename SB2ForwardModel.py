@@ -50,12 +50,12 @@ def sb2_radial_velocity(t, P, T0, e, omega_deg, gamma, K1, K2):
     return vr1, vr2
 
 # --- Plot example system ---
-row = df.iloc[0]
+row = df[df['period'] > 50].iloc[0]
 t = np.linspace(0, row['period'], 500)
 
 vr1, vr2 = sb2_radial_velocity(
-    t, P=row['period'], T0=0, e=row['eccentricity'],
-    omega_deg=0, gamma=0,
+    t, P=row['period'], T0=row['t_periastron'], e=row['eccentricity'],
+    omega_deg=row['arg_periastron'], gamma=row['center_of_mass_velocity'],
     K1=row['semi_amplitude_primary'], K2=row['semi_amplitude_secondary']
 )
 
