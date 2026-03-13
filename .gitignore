@@ -1,24 +1,36 @@
-# Python cache
+# Python bytecode and caches
 __pycache__/
-*.pyc
-
-# Jupyter checkpoints
-.ipynb_checkpoints/
+*.py[cod]
+*$py.class
 
 # Virtual environments
-venv/
-.env/
 .venv/
+venv/
+env/
+.env/
 
 # Conda environments
 .envs/
 
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
 # Generated data files
+data/model/*.csv
 data/raw/*.csv
 data/cleaned/*.csv
 
 # Generated plots
 *.png
 
-# OS files
+# OS/editor files
 .DS_Store
+.vscode/
+.idea/
