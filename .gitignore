@@ -1,0 +1,24 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Conda environments
+.envs/
+
+# Generated data files
+data/raw/*.csv
+data/cleaned/*.csv
+
+# Generated plots
+*.png
+
+# OS files
+.DS_Store
