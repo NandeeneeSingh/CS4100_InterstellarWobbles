@@ -39,7 +39,7 @@ FROM gaiadr3.nss_two_body_orbit
 WHERE nss_solution_type = 'SB1'
   AND rv_n_good_obs_primary >= 20
   AND efficiency >= 0.2
-  AND significance >= 40
+  AND significance >= 10
   AND period BETWEEN 2 AND 800
 """
 
