@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-CLEAN_CSV = Path("data/cleaned/gaia_sb1_cleaned.csv")
-OUTPUT_PNG = Path("data/cleaned/example_rv_curve.png")
+CLEAN_CSV = Path("data/sb1-model/cleaned/gaia_sb1_cleaned.csv")
+OUTPUT_PNG = Path("data/sb1-model/cleaned/example_rv_curve.png")
 
 def solve_keplr(M, e, tol=1e-10, max_iter=1000):
     """
