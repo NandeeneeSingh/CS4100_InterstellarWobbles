@@ -26,9 +26,7 @@ htmlcov/
 .ipynb_checkpoints/
 
 # Generated data files
-data/model/*.csv
-data/raw/*.csv
-data/cleaned/*.csv
+
 
 # Generated plots
 *.png

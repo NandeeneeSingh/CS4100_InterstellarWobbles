@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-df = pd.read_csv('data/cleaned/sb2_cleaned.csv')
+df = pd.read_csv('data/sb2-model/cleaned/sb2_cleaned.csv')
 
 PREFACTOR_CONST = 1.036e-7
 
@@ -67,8 +67,11 @@ plt.ylabel('Radial Velocity (km/s)')
 plt.title(f'SB2 Forward Model RV Curve (source_id={row["source_id"]})')
 plt.legend()
 plt.tight_layout()
-plt.savefig('data/sb2-model/sb2_example_rv_curve.png', dpi=200)
-print(f"Saved example RV curve to data/sb2-model/sb2_example_rv_curve.png")
+out_path = Path("data/sb2-model/model-results/sb2_example_rv_curve.png")
+out_path.parent.mkdir(parents=True, exist_ok=True)
+plt.savefig(out_path, dpi=200)
+plt.savefig('data/sb2-model/model-results/sb2_example_rv_curve.png', dpi=200)
+print(f"Saved example RV curve to data/sb2-model/model-results/sb2_example_rv_curve.png")
 
 # --- Mass equations derived from the forward model ---
 
@@ -82,7 +85,7 @@ K_total = df['semi_amplitude_primary'] + df['semi_amplitude_secondary']
 df['m2_sin3i'] = prefactor * K_total**2 * df['semi_amplitude_primary']
 df['m1_sin3i'] = prefactor * K_total**2 * df['semi_amplitude_secondary']
 
-df.to_csv('data/sb2-model/sb2_forward_model_results.csv', index=False)
+df.to_csv('data/sb2-model/model-results/sb2_forward_model_results.csv', index=False)
 
 # Sanity check: m_sin3i should be <= Gaia's reported mass since sin^3(i) <= 1
 print(f"M2*sin3i <= Gaia M2: {(df['m2_sin3i'] <= df['m2']).mean()*100:.1f}%")
