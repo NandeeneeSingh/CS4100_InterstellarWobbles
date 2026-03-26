@@ -6,7 +6,7 @@ from astroquery.gaia import Gaia
 query = """
 SELECT
     source_id, ra, dec, parallax, significance, period, 
-    ruwe, a_thiele_innes, b_thiele_innes 
+    ruwe, a_thiele_innes, b_thiele_innes, phot_g_mean_mag, bp_rp
 FROM gaiadr3.nss_acceleration_astrometric
 WHERE parallax >0
 AND period < 1000
