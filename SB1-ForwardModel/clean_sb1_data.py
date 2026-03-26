@@ -1,11 +1,11 @@
 import pandas as pd
 from pathlib import Path
 
-RAW_CSV = Path("data/sb1-model/raw/gaia_sb1_raw.csv")
-CLEAN_DIR = Path("data/sb1-model/cleaned")
+RAW_CSV = Path("../data/01_raw/sb1_raw.csv")
+CLEAN_DIR = Path("../data/02_cleaned")
 CLEAN_DIR.mkdir(parents=True, exist_ok=True)
 
-OUTPUT_CSV = CLEAN_DIR / "gaia_sb1_cleaned.csv"
+OUTPUT_CSV = CLEAN_DIR / "sb1_cleaned.csv"
 
 def main():
     if not RAW_CSV.exists():

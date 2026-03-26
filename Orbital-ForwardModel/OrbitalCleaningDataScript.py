@@ -34,4 +34,4 @@ df = results.to_pandas()
 df['wobble_amplitude'] = np.sqrt(df['a_thiele_innes']**2 + df['b_thiele_innes']**2)
 
 # Save result 
-df.to_csv('../data/cleaned_gaia_data.csv', index=False)
+df.to_csv('../data/02_cleaned/orbital_cleaned.csv', index=False)

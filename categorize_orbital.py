@@ -2,11 +2,8 @@ import pandas as pd
 import numpy as np
 import os
 
-# File paths 
-BASE_PATH = os.path.dirname(os.path.abspath(__file__))
-
-INPUT_FILE = os.path.join(BASE_PATH, 'data', 'categorization_ready', 'with_m1_cleaned_nss_orbital_results.csv')
-OUTPUT_DIRECTORY = os.path.join(BASE_PATH, 'data', 'final_categorization')
+INPUT_FILE = os.path.join('data/03_physics_anchored/with_m1_orbital_cleaned.csv')
+OUTPUT_DIRECTORY = os.path.join('data/04_categorized')
 OUTPUT_FILE = os.path.join(OUTPUT_DIRECTORY, 'orbital_categorized.csv')
 
 def run_orbital_monteCarlo(iterations=10000):

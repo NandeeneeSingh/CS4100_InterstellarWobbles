@@ -39,5 +39,5 @@ df = df.dropna(subset=[
 df = df[df['semi_amplitude_primary'] > 0]
 df = df[df['semi_amplitude_secondary'] > 0]
 
-df.to_csv('data/sb2-model/cleaned/sb2_cleaned.csv', index=False)
+df.to_csv('../data/02_cleaned/sb2_cleaned.csv', index=False)
 print(f"Cleaned SB2 data: {len(df)} systems")
