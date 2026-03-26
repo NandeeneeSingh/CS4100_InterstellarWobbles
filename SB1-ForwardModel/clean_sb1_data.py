@@ -1,11 +1,11 @@
 import pandas as pd
 from pathlib import Path
 
-RAW_CSV = Path("data/sb1-model/raw/gaia_sb1_raw.csv")
-CLEAN_DIR = Path("data/sb1-model/cleaned")
+RAW_CSV = Path("../data/01_raw/sb1_raw.csv")
+CLEAN_DIR = Path("../data/02_cleaned")
 CLEAN_DIR.mkdir(parents=True, exist_ok=True)
 
-OUTPUT_CSV = CLEAN_DIR / "gaia_sb1_cleaned.csv"
+OUTPUT_CSV = CLEAN_DIR / "sb1_cleaned.csv"
 
 def main():
     if not RAW_CSV.exists():
@@ -75,18 +75,7 @@ def main():
 
     # Quality cuts
     # We can loosened/tightened later if needed.
-    if "rv_n_good_obs_primary" in df.columns:
-        df = df[df["rv_n_good_obs_primary"] >= 20]
-        print(f"After rv_n_good_obs_primary >= 20: {len(df)}")
-
-    if "efficiency" in df.columns:
-        df = df[df["efficiency"] >= 0.2]
-        [print(f"After efficiency >= 0.2: {len(df)}")]
-
-    if "significance" in df.columns:
-        df = df[df["significance"] >= 10]
-        [print(f"After significance >= 10: {len(df)}")]
-
+    
     if "period" in df.columns:
         df = df[df["period"].between(2, 1000)]
         print(f"After period between 2 and 1000 days: {len(df)}")
