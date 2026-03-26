@@ -35,7 +35,8 @@ SELECT TOP 5000
     nss.significance,
     nss.goodness_of_fit,
     nss.conf_spectro_period,
-    nss.flags
+    nss.flags,
+    gs.bp_rp
 FROM gaiadr3.nss_two_body_orbit AS nss
 JOIN gaiadr3.gaia_source AS gs ON nss.source_id = gs.source_id
 WHERE nss.nss_solution_type = 'SB1'
