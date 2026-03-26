@@ -4,13 +4,13 @@ import os
 
 # 1. Define filenames of cleaned gaia data 
 FILES_TO_PROCESS = [
-    'SB1-ForwardModel/data/cleaned/gaia_sb1_cleaned.csv',
-    'data/sb2-model/sb2_forward_model_results.csv',
-    'data/cleaned_nss_orbital_results.csv'
+    'data/02_cleaned/orbital_cleaned.csv',
+    'data/02_cleaned/sb1_cleaned.csv',
+    'data/03_physics_anchored/sb2_forward_model_results.csv'
 ]
 
 # Master folder for all outputs to be in one place 
-OUTPUT_DIR = 'data/categorization_ready'
+OUTPUT_DIR = 'data/03_physics_anchored'
 
 def run_stellar_mass_pipeline():
     # Safety check: make sure output path exists

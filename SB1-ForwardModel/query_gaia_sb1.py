@@ -1,10 +1,10 @@
 from astroquery.gaia import Gaia
 from pathlib import Path
 
-RAW_DIR = Path("data/sb1-model/raw")
+RAW_DIR = Path("../data/01_raw")
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-OUTPUT_CSV = RAW_DIR / "gaia_sb1_raw.csv"
+OUTPUT_CSV = RAW_DIR / "sb1_raw.csv"
 
 QUERY = """
 SELECT TOP 5000
