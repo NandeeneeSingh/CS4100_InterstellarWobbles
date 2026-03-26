@@ -8,39 +8,41 @@ OUTPUT_CSV = RAW_DIR / "gaia_sb1_raw.csv"
 
 QUERY = """
 SELECT TOP 5000
-    source_id,
-    solution_id,
-    nss_solution_type,
-    ra,
-    dec,
-    parallax,
-    period,
-    period_error,
-    t_periastron,
-    t_periastron_error,
-    eccentricity,
-    eccentricity_error,
-    arg_periastron,
-    arg_periastron_error,
-    center_of_mass_velocity,
-    center_of_mass_velocity_error,
-    semi_amplitude_primary,
-    semi_amplitude_primary_error,
-    inclination,
-    inclination_error,
-    rv_n_obs_primary,
-    rv_n_good_obs_primary,
-    efficiency,
-    significance,
-    goodness_of_fit,
-    conf_spectro_period,
-    flags
-FROM gaiadr3.nss_two_body_orbit
-WHERE nss_solution_type = 'SB1'
-  AND rv_n_good_obs_primary >= 20
-  AND efficiency >= 0.2
-  AND significance >= 10
-  AND period BETWEEN 2 AND 800
+    nss.source_id,
+    gs.phot_g_mean_mag,
+    nss.solution_id,
+    nss.nss_solution_type,
+    nss.ra,
+    nss.dec,
+    nss.parallax,
+    nss.period,
+    nss.period_error,
+    nss.t_periastron,
+    nss.t_periastron_error,
+    nss.eccentricity,
+    nss.eccentricity_error,
+    nss.arg_periastron,
+    nss.arg_periastron_error,
+    nss.center_of_mass_velocity,
+    nss.center_of_mass_velocity_error,
+    nss.semi_amplitude_primary,
+    nss.semi_amplitude_primary_error,
+    nss.inclination,
+    nss.inclination_error,
+    nss.rv_n_obs_primary,
+    nss.rv_n_good_obs_primary,
+    nss.efficiency,
+    nss.significance,
+    nss.goodness_of_fit,
+    nss.conf_spectro_period,
+    nss.flags
+FROM gaiadr3.nss_two_body_orbit AS nss
+JOIN gaiadr3.gaia_source AS gs ON nss.source_id = gs.source_id
+WHERE nss.nss_solution_type = 'SB1'
+  AND nss.rv_n_good_obs_primary >= 20
+  AND nss.efficiency >= 0.2
+  AND nss.significance >= 10
+  AND nss.period BETWEEN 2 AND 800
 """
 
 def main():
