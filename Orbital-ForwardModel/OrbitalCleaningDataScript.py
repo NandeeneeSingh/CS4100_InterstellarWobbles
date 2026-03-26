@@ -5,14 +5,22 @@ from astroquery.gaia import Gaia
 # Define ADQL query 
 query = """
 SELECT
-    source_id, ra, dec, parallax, significance, period, 
-    ruwe, a_thiele_innes, b_thiele_innes 
-FROM gaiadr3.nss_acceleration_astrometric
-WHERE parallax >0
-AND significance > 10
-AND period < 1000
-AND ruwe > 1.4
-AND ruwe < 4.0
+    nss.source_id, 
+    gs.ra, 
+    gs.dec, 
+    gs.parallax, 
+    nss.significance, 
+    nss.period, 
+    gs.ruwe, 
+    nss.a_thiele_innes, 
+    nss.b_thiele_innes, 
+    gs.phot_g_mean_mag, 
+    gs.bp_rp
+FROM gaiadr3.nss_two_body_orbit AS nss
+JOIN gaiadr3.gaia_source AS gs ON nss.source_id = gs.source_id
+WHERE gs.parallax > 0
+  AND nss.period < 1000
+  AND nss.nss_solution_type = 'Orbital'
 """
 
 # Execute the query and retrieve the data
@@ -26,4 +34,4 @@ df = results.to_pandas()
 df['wobble_amplitude'] = np.sqrt(df['a_thiele_innes']**2 + df['b_thiele_innes']**2)
 
 # Save result 
-df.to_csv('data/cleaned_gaia_data.csv', index=False)
+df.to_csv('../data/02_cleaned/orbital_cleaned.csv', index=False)

@@ -34,12 +34,10 @@ df = df.dropna(subset=[
     'phot_g_mean_mag', 'bp_rp'
 ])
 
-# Only keep systems with reliable distance measurements
-df = df[df['parallax_over_error'] > 10]
 
 # Both semi-amplitudes must be positive (SB2 = both stars detected)
 df = df[df['semi_amplitude_primary'] > 0]
 df = df[df['semi_amplitude_secondary'] > 0]
 
-df.to_csv('data/sb2-model/cleaned/sb2_cleaned.csv', index=False)
+df.to_csv('../data/02_cleaned/sb2_cleaned.csv', index=False)
 print(f"Cleaned SB2 data: {len(df)} systems")
