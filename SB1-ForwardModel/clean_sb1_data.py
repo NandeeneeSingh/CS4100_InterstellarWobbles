@@ -20,6 +20,7 @@ def main():
     # Keep only core fields that matter for modeling and quality checks
     keep_cols = [
         "source_id",
+        "phot_g_mean_mag",
         "solution_id",
         "nss_solution_type",
         "ra",
