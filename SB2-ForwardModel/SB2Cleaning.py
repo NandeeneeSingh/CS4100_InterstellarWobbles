@@ -34,8 +34,6 @@ df = df.dropna(subset=[
     'phot_g_mean_mag', 'bp_rp'
 ])
 
-# Only keep systems with reliable distance measurements
-df = df[df['parallax_over_error'] > 10]
 
 # Both semi-amplitudes must be positive (SB2 = both stars detected)
 df = df[df['semi_amplitude_primary'] > 0]

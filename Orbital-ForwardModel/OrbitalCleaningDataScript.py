@@ -9,10 +9,7 @@ SELECT
     ruwe, a_thiele_innes, b_thiele_innes 
 FROM gaiadr3.nss_acceleration_astrometric
 WHERE parallax >0
-AND significance > 10
 AND period < 1000
-AND ruwe > 1.4
-AND ruwe < 4.0
 """
 
 # Execute the query and retrieve the data

@@ -3,8 +3,8 @@ import numpy as np
 import os 
 
 # Define path to the cleaned data
-INPUT_FILE: 'data/cleaned_nss_orbital_results.csv'
-OUTPUT_FILE: 'data/orbital_with_m1.csv'
+INPUT_FILE = 'data/cleaned_nss_orbital_results.csv'
+OUTPUT_FILE = 'data/orbital_with_m1.csv'
 
 def run_stellar_mass_calculation(input_file, output_file):
     # Load the cleaned data
