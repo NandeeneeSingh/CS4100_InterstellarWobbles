@@ -1,9 +1,3 @@
-# Ignore data folder where CSV's are
-data/
-
-# Ignore loose CSV files 
-*.csv
-
 # Ignore Python cache files
 __pycache__/
 *.pyc
@@ -32,9 +26,7 @@ htmlcov/
 .ipynb_checkpoints/
 
 # Generated data files
-data/model/*.csv
-data/raw/*.csv
-data/cleaned/*.csv
+
 
 # Generated plots
 *.png
