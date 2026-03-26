@@ -41,5 +41,5 @@ df = df[df['parallax_over_error'] > 10]
 df = df[df['semi_amplitude_primary'] > 0]
 df = df[df['semi_amplitude_secondary'] > 0]
 
-df.to_csv('data/cleaned/sb2_cleaned.csv', index=False)
+df.to_csv('data/sb2-model/cleaned/sb2_cleaned.csv', index=False)
 print(f"Cleaned SB2 data: {len(df)} systems")
