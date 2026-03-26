@@ -75,18 +75,7 @@ def main():
 
     # Quality cuts
     # We can loosened/tightened later if needed.
-    if "rv_n_good_obs_primary" in df.columns:
-        df = df[df["rv_n_good_obs_primary"] >= 20]
-        print(f"After rv_n_good_obs_primary >= 20: {len(df)}")
-
-    if "efficiency" in df.columns:
-        df = df[df["efficiency"] >= 0.2]
-        [print(f"After efficiency >= 0.2: {len(df)}")]
-
-    if "significance" in df.columns:
-        df = df[df["significance"] >= 10]
-        [print(f"After significance >= 10: {len(df)}")]
-
+    
     if "period" in df.columns:
         df = df[df["period"].between(2, 1000)]
         print(f"After period between 2 and 1000 days: {len(df)}")

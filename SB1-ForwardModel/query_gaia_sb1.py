@@ -39,9 +39,6 @@ SELECT TOP 5000
 FROM gaiadr3.nss_two_body_orbit AS nss
 JOIN gaiadr3.gaia_source AS gs ON nss.source_id = gs.source_id
 WHERE nss.nss_solution_type = 'SB1'
-  AND nss.rv_n_good_obs_primary >= 20
-  AND nss.efficiency >= 0.2
-  AND nss.significance >= 10
   AND nss.period BETWEEN 2 AND 800
 """
 
