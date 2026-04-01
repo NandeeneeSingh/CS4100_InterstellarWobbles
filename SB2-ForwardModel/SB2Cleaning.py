@@ -4,9 +4,13 @@ from astroquery.gaia import Gaia
 
 query = """
 SELECT
-    nss.source_id, nss.nss_solution_type, nss.period, nss.eccentricity,
-    nss.goodness_of_fit, nss.semi_amplitude_primary, nss.semi_amplitude_secondary,
-    nss.t_periastron, nss.arg_periastron, nss.center_of_mass_velocity,
+    nss.source_id, nss.nss_solution_type, nss.period, nss.period_error,
+    nss.eccentricity, nss.eccentricity_error,
+    nss.goodness_of_fit, nss.significance,
+    nss.semi_amplitude_primary, nss.semi_amplitude_primary_error,
+    nss.semi_amplitude_secondary, nss.semi_amplitude_secondary_error,
+    nss.t_periastron, nss.arg_periastron,
+    nss.center_of_mass_velocity, nss.center_of_mass_velocity_error,
     m.m1, m.m2, m.fluxratio,
     gs.ra, gs.dec, gs.parallax, gs.parallax_error,
     gs.parallax_over_error, gs.ruwe, gs.phot_g_mean_mag, gs.bp_rp
@@ -28,8 +32,10 @@ df = df[df['parallax'] > 0]
 
 # Drop rows missing columns needed for the forward model
 df = df.dropna(subset=[
-    'semi_amplitude_primary', 'semi_amplitude_secondary',
-    'period', 'eccentricity',
+    'semi_amplitude_primary', 'semi_amplitude_primary_error',
+    'semi_amplitude_secondary', 'semi_amplitude_secondary_error',
+    'period', 'period_error',
+    'eccentricity', 'eccentricity_error',
     'parallax', 'parallax_error',
     'phot_g_mean_mag', 'bp_rp'
 ])
@@ -39,5 +45,5 @@ df = df.dropna(subset=[
 df = df[df['semi_amplitude_primary'] > 0]
 df = df[df['semi_amplitude_secondary'] > 0]
 
-df.to_csv('../data/02_cleaned/sb2_cleaned.csv', index=False)
+df.to_csv('data/02_cleaned/sb2_cleaned.csv', index=False)
 print(f"Cleaned SB2 data: {len(df)} systems")
