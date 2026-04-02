@@ -32,6 +32,5 @@ Gaia telescope data is notoriously noisy. Instead of using hardcoded human rules
 
 To prove the efficacy of the pipeline, the final AI-cleaned catalog is cross-referenced against external databases of known astronomical objects.
 
-The Verification: We map our predicted White Dwarfs, Neutron Stars, and Black Hole candidates against databases like SIMBAD or the BlackHoleTombola. If a system our pipeline flagged with a 99% confidence of being a "Degenerate Compact Object" is already confirmed by independent X-ray observatories to be a White Dwarf, the pipeline's predictive power is validated.
 
 `Python version 3.14.0`
