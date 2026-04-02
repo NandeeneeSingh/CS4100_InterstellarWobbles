@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-CLEAN_CSV = Path("data/sb1-model/cleaned/gaia_sb1_cleaned.csv")
-OUTPUT_PNG = Path("data/sb1-model/cleaned/example_rv_curve.png")
+CLEAN_CSV = Path("data/02_cleaned/sb1_cleaned.csv")
+OUTPUT_PNG = Path("data/sb1-model/model-results/example_rv_curve.png")
 
 def solve_keplr(M, e, tol=1e-10, max_iter=1000):
     """
@@ -87,7 +87,7 @@ def main():
     plt.savefig(OUTPUT_PNG, dpi=200)
 
     print(f"Saved example RV curve to: {OUTPUT_PNG}")
-    print(f"\nExample system parameterss used:")
+    print(f"\nExample system parameters used:")
     print(f"source_id = {row['source_id']}")
     print(f"P = {P}")
     print(f"T0 = {T0}")

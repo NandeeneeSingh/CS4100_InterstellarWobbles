@@ -1,8 +1,8 @@
 import pandas as pd
 from pathlib import Path
 
-RAW_CSV = Path("../data/01_raw/sb1_raw.csv")
-CLEAN_DIR = Path("../data/02_cleaned")
+RAW_CSV = Path("data/01_raw/sb1_raw.csv")
+CLEAN_DIR = Path("data/02_cleaned")
 CLEAN_DIR.mkdir(parents=True, exist_ok=True)
 
 OUTPUT_CSV = CLEAN_DIR / "sb1_cleaned.csv"
@@ -26,6 +26,8 @@ def main():
         "ra",
         "dec",
         "parallax",
+        "parallax_error",
+        "bp_rp",
         "period",
         "period_error",
         "t_periastron",
