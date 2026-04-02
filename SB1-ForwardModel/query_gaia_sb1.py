@@ -1,7 +1,7 @@
 from astroquery.gaia import Gaia
 from pathlib import Path
 
-RAW_DIR = Path("../data/01_raw")
+RAW_DIR = Path("data/01_raw")
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 
 OUTPUT_CSV = RAW_DIR / "sb1_raw.csv"
@@ -14,7 +14,9 @@ SELECT TOP 5000
     nss.nss_solution_type,
     nss.ra,
     nss.dec,
-    nss.parallax,
+    gs.parallax,
+    gs.parallax_error,
+    gs.bp_rp,
     nss.period,
     nss.period_error,
     nss.t_periastron,
@@ -35,8 +37,7 @@ SELECT TOP 5000
     nss.significance,
     nss.goodness_of_fit,
     nss.conf_spectro_period,
-    nss.flags,
-    gs.bp_rp
+    nss.flags
 FROM gaiadr3.nss_two_body_orbit AS nss
 JOIN gaiadr3.gaia_source AS gs ON nss.source_id = gs.source_id
 WHERE nss.nss_solution_type = 'SB1'

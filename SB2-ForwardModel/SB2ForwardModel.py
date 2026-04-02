@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-df = pd.read_csv('../data/02_cleaned/sb2_cleaned.csv')
+df = pd.read_csv('data/02_cleaned/sb2_cleaned.csv')
 
 PREFACTOR_CONST = 1.036e-7
 
@@ -85,7 +85,7 @@ K_total = df['semi_amplitude_primary'] + df['semi_amplitude_secondary']
 df['m2_sin3i'] = prefactor * K_total**2 * df['semi_amplitude_primary']
 df['m1_sin3i'] = prefactor * K_total**2 * df['semi_amplitude_secondary']
 
-df.to_csv('../data/03_physics_anchored/sb2_forward_model_results.csv', index=False)
+df.to_csv('data/03_physics_anchored/sb2_forward_model_results.csv', index=False)
 
 # Sanity check: m_sin3i should be <= Gaia's reported mass since sin^3(i) <= 1
 print(f"M2*sin3i <= Gaia M2: {(df['m2_sin3i'] <= df['m2']).mean()*100:.1f}%")
