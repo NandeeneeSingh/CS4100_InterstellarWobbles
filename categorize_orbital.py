@@ -13,7 +13,7 @@ def run_orbital_monteCarlo(iterations=10000):
         return 
     
     df = pd.read_csv(INPUT_FILE)
-    final_categorization = []
+    most_likely_category = []
     confidence_levels = []
 
     print(f"Running Monte Carlo simulation for {len(df)} entries with {iterations} iterations each...")
@@ -64,11 +64,11 @@ def run_orbital_monteCarlo(iterations=10000):
         if confidence_level < 0.50: 
             highest_count = "Systemic Artifact"
         
-        final_categorization.append(highest_count)
+        most_likely_category.append(highest_count)
         confidence_levels.append(confidence_level)
 
     # Save results 
-    df['final_categorization'] = final_categorization
+    df['most_likely_category'] = most_likely_category
     df['category_confidence'] = confidence_levels
 
     if not os.path.exists(OUTPUT_DIRECTORY):
@@ -77,7 +77,7 @@ def run_orbital_monteCarlo(iterations=10000):
     df.to_csv(OUTPUT_FILE, index=False)
     print(f"Finished! Results saved to {OUTPUT_FILE}")
     print(f"Summary of Analysis:")
-    print(df['final_categorization'].value_counts())
+    print(df['most_likely_category'].value_counts())
 
 if __name__ == "__main__":
     run_orbital_monteCarlo()
