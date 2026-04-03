@@ -8,11 +8,11 @@
 
 ## Step 2: The Two-Stage Bayesian Optimizer
 
-Because telescope data inherently contains noise, and radial velocity data is missing the orbital inclination (i), we cannot use deterministic math. Instead, we use a stochastic probability engine:
+We use a two-stage approach to efficiently solve the inverse physics problem:
 
-The Physics Engine: We map the data to theoretical models—using Kepler's Third Law for 3D Astrometric wobble, and a highly optimized Newton-Raphson solver to resolve the Mass Function for 1D Spectroscopic binaries.
+**Phase A (Informed Prior Generation):** A standard Monte Carlo stochastic search throws 10,000 random mass and tilt guesses at our forward physics models. This broadly maps the parameter space and finds the mathematical "foothills" of the true answer.
 
-The Stochastic Simulation: For every single star system, the pipeline runs a 10,000-iteration Monte Carlo simulation. It randomly samples Gaia's specific error bars (for parallax, period, and semi-amplitude) and simulates thousands of random orbital tilts. This outputs a true probability distribution of the dark companion's mass (M2​).
+**Phase B (Bayesian Parameter Estimation):** The best guesses from Phase A are injected into a Markov Chain Monte Carlo (MCMC) algorithm. The MCMC dynamically learns the topology of the data, stepping through the parameter space to find the exact posterior probability distribution of the dark companion's mass (M2) and orbital inclination (i).
 
 ## Step 3: Unsupervised Anomaly Detection
 
