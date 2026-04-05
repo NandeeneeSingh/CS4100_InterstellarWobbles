@@ -28,4 +28,9 @@ Gaia telescope data is notoriously noisy. Instead of using hardcoded human rules
 
 **Visual Validation:** The pipeline generates a final population distribution histogram, as well as an HR Diagram to visually validate the foundational M1 physics.
 
+**Step 5**: Literature Cross-Matching (Validation)
+
+To prove the efficacy of the pipeline, the final AI-cleaned catalog is cross-referenced against external databases of known astronomical objects.
+
+
 `Python version 3.14.0`
