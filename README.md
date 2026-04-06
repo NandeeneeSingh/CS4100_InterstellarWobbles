@@ -14,7 +14,7 @@
 
 ## Step 3: Minimum Mass Target & Standard Forest Architecture
 
-- **The ML Model:** We train a standard Random Forest classifier using an optimized library (scikit-learn), utilizing the built-in predict_proba() function to output class probabilities rather than hard predictions.
+- **The ML Model:** We train a standard Random Forest classifier, utilizing a manual implementation of scikit's predict_proba() function to output class probabilities rather than hard predictions.
 
 - **The Target Shift:** Instead of predicting absolute classes (like High-Mass Dark Remnant), we train the model to predict Minimum Mass thresholds (e.g., Min_Mass_>_3_Solar). This perfectly aligns the machine learning goal with the strict mathematical limits of the Binary Mass Function.
 
