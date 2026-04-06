@@ -31,6 +31,11 @@
 - **The Filter:** We apply strict thresholding to the probability outputs. If a system fails to reach a high confidence threshold ($>85\%$), it is discarded. If the astrometric metadata suggests bad Gaia data or instrumental noise, the system's class is overridden and explicitly flagged as a `Systemic_Artifact`. 
 - **The Result:** The pipeline produces a pristine, highly-curated catalog of high-confidence black hole candidates as well as identified noise artifacts for further scientific study and telescope follow-up.
 
+### Step 6: Validation via Independent Datasets
+- **Orbital Data (The Gold Test):** Used strictly as a final hold-out set to validate the model's accuracy. For these fully-resolved astrometric systems, we implemented complete physical orbital equations to calculate the exact *True Mass* for verification.
+- **SB2 Data (The Silver Test):** Used as a secondary test to evaluate the model's performance on double-lined systems. Because both stars are visible in the spectra, we used physics equations to mathematically derive the *Minimum Mass* to serve as our ground truth.
+- **The Result:** This multi-tiered evaluation proves that the probabilistic logic learned from synthetic injections successfully scales out to completely novel, fully-resolved physical systems.
+
 ---
 `Python version 3.14.0`
 Note: It's recommended that you install the `DataWrangler` VS Code extension to open large CSVs.
