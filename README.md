@@ -1,36 +1,34 @@
 # CS4100 Interstellar Wobbles 
 
-## Step 1: Data Ingestion & Physical Anchoring
+## Step 1: Feature Engineering & The Monte Carlo Expansion
 
-**The Data:** We query the Gaia DR3 archive for three specific system types: SB1 (classic radial velocity), SB2 (validation control group), and Orbital (3D astrometry).
+- **The Data:** We clean the Gaia DR3 SB1 dataset, isolating the available physical features (orbital period, eccentricity, radial velocity amplitude, and primary mass).
 
-**The Physics:** We calculate the mass of the visible host star (M1) using its luminosity and distance. This serves as the gravitational anchor for the rest of the pipeline.
+- **The Physics:** To solve the missing inclination angle (i), we implement a Monte Carlo simulation. For every real SB1 system, we generate 100 computational clones, assigning each a random orbital tilt drawn from a true geometric distribution. This statistical spread completely bypasses the physics "degeneracy wall."
 
-## Step 2: The Two-Stage Bayesian Optimizer
+## Step 2: Synthetic Data Generation (The "Black Hole" Injection)
 
-We use a two-stage approach to efficiently solve the inverse physics problem:
+- **The Process:** We use forward physics models to simulate the wobbles of a primary star being pulled by a high-mass anomaly (10-20 solar masses).
 
-**Phase A (Informed Prior Generation):** A standard Monte Carlo stochastic search throws 10,000 random mass and tilt guesses at our forward physics models. This broadly maps the parameter space and finds the mathematical "foothills" of the true answer.
+- **The Goal:** We apply the exact same Monte Carlo cloning process to these synthetic anomalies, simulating them across all possible viewing angles (from edge-on to face-on). This forces the AI to learn the full physical boundary of a black hole wobble, creating a perfectly balanced training set.
 
-**Phase B (Bayesian Parameter Estimation):** The best guesses from Phase A are injected into a Markov Chain Monte Carlo (MCMC) algorithm. The MCMC dynamically learns the topology of the data, stepping through the parameter space to find the exact posterior probability distribution of the dark companion's mass (M2) and orbital inclination (i).
+## Step 3: Minimum Mass Target & Standard Forest Architecture
 
-## Step 3: Unsupervised Anomaly Detection
+- **The ML Model:** We train a standard Random Forest classifier using an optimized library (scikit-learn), utilizing the built-in predict_proba() function to output class probabilities rather than hard predictions.
 
-Gaia telescope data is notoriously noisy. Instead of using hardcoded human rules (e.g., deleting rows based on arbitrary error thresholds), we deploy AI to clean the data.
+- **The Target Shift:** Instead of predicting absolute classes (like High-Mass Dark Remnant), we train the model to predict Minimum Mass thresholds (e.g., Min_Mass_>_3_Solar). This perfectly aligns the machine learning goal with the strict mathematical limits of the Binary Mass Function.
 
-**The ML Filter:** The pipeline feeds the physical results into an Isolation Forest (an Unsupervised Machine Learning model).
+## Step 4: Probabilistic Inference on SB1 Data
 
-**The Action:** The AI autonomously clusters mathematically stable "real physics" systems and isolates erratic, noisy data points, officially flagging them as "Systemic Artifacts."
+- **The Action:** We feed the unlabeled, Monte-Carlo-expanded SB1 data into the trained Random Forest.
 
-## Step 4: Probabilistic Classification & Visualization
+- **The Output:** The model evaluates the statistical clones and aggregates the class ratios from every tree, outputting a mathematically sound final Probability Distribution for each system's minimum mass.
 
-**Confidence Matrices:** Because the pipeline is probabilistic, it does not output rigid, deterministic labels. Instead, it outputs confidence levels (e.g., "This system has a 92% probability of being a High-Mass Dark Remnant, and an 8% probability of being a Degenerate Compact Object").
 
-**Visual Validation:** The pipeline generates a final population distribution histogram, as well as an HR Diagram to visually validate the foundational M1 physics.
+## Step 5: Anomaly Classification & Artifact Filtering
 
-**Step 5**: Literature Cross-Matching (Validation)
+- **The Filter:** We apply strict thresholding to the probability outputs. If a system's highest probability is a "Systemic Artifact" (bad Gaia data or instrumental noise), or if it fails to reach a high confidence threshold, it is autonomously flagged as noise and discarded.
 
-To prove the efficacy of the pipeline, the final AI-cleaned catalog is cross-referenced against external databases of known astronomical objects.
-
+- **The Result:** The pipeline produces a pristine, highly-curated catalog of high-confidence black hole and anomaly candidates for publication and telescope follow-up.
 
 `Python version 3.14.0`
