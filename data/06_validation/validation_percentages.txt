@@ -1,13 +1,3 @@
-  Orbital — Overall Accuracy: 99.50%
-  Class                      Correct    Total   Accuracy
-  ───────────────────────────────────────────────────────
-  Min_Mass_<_1.4                1979     1983      99.8%
-  Min_Mass_1.4_to_3.0             10       15      66.7%
-  Min_Mass_>_3.0                   1        2      50.0%
-
-  Artifact saved: data/05_results/validation_orbital.csv
-
-
   SB2   — Overall Accuracy: 62.09%
   Class                      Correct    Total   Accuracy
   ───────────────────────────────────────────────────────
