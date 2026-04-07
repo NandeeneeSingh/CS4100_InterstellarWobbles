@@ -9,7 +9,7 @@ N_CLONES = 100
 RANDOM_SEED = 42
 
 CLASS_LABELS = {0: "Min_Mass_<_1.4", 1: "Min_Mass_1.4_to_3.0", 2: "Min_Mass_>_3.0"}
-OUTPUT_DIR = Path("data/05_results")
+OUTPUT_DIR = Path("data/06_validation")
 
 def print_per_class_accuracy(system_df, true_col, label):
     print(f"  {'Class':<25} {'Correct':>8} {'Total':>8} {'Accuracy':>10}")
@@ -97,7 +97,6 @@ def validate_sb2(rf: CustomRandomForest):
 
     df = pd.read_csv(input_csv)
     df = df.dropna(subset=["period", "eccentricity", "semi_amplitude_primary", "m1_solar_m", "m2_sin3i"]).copy()
-    df.loc[:, "true_class"] = map_target(df["m2_sin3i"])
 
     n_systems = len(df)
     clone_df = df.loc[df.index.repeat(N_CLONES)].reset_index(drop=True)
@@ -105,6 +104,10 @@ def validate_sb2(rf: CustomRandomForest):
     rng = np.random.default_rng(RANDOM_SEED + 1)
     cos_i = rng.uniform(0.0, 1.0, size=len(clone_df))
     clone_df.loc[:, "i_sample_deg"] = np.degrees(np.arccos(cos_i))
+
+    sin_i = np.sin(np.radians(clone_df["i_sample_deg"]))
+    clone_df.loc[:, "m2_true_sample"] = clone_df["m2_sin3i"] / (sin_i**3)
+    clone_df.loc[:, "true_class"] = map_target(clone_df["m2_true_sample"])
 
     features = ["period", "eccentricity", "semi_amplitude_primary", "m1_solar_m", "i_sample_deg"]
     X = clone_df[features].values
@@ -116,7 +119,7 @@ def validate_sb2(rf: CustomRandomForest):
     
     system_df = clone_df.groupby("source_id").agg({
         "prob_soup": "mean", "prob_inter": "mean", "prob_hmdr": "mean",
-        "true_class": "first", "m2_sin3i": "first"
+        "true_class": lambda x: x.mode()[0], "m2_sin3i": "first"
     }).reset_index()
 
     system_df["predicted_class"] = np.argmax(system_df[["prob_soup", "prob_inter", "prob_hmdr"]].values, axis=1)
