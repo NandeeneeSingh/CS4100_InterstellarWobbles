@@ -56,3 +56,74 @@ def solve_m2(f_mass, m1, sin_i, iters=FP_ITER):
 
     return m2
 
+def main():
+    rng = np.random.default_rng(RANDOM_SEED)
+
+    # Load SB1 Data
+    if not INPUT_CSV.exists():
+        raise FileNotFoundError(f"Input CSV not found: {INPUT_CSV}, run calculate_m1_sb1.py first.")
+    
+    df = pd.read_csv(INPUT_CSV, usecols=lambda col: col in CORE_FEATURES)
+    print(f"Loaded {len(df)} SB1 systems from {INPUT_CSV}")
+
+    df = df[CORE_FEATURES].dropna().copy() 
+    print(f"{len(df)} systems after dropping rows with missing core features.")
+
+    # Compute binary mass function for each system
+    df["f_mass"] = compute_mass_function(
+        df["semi_amplitude_primary"].values(),
+        df["period"].values(),
+        df["eccentricity"].values(),
+    )
+
+    # Minimum companion mass (conservative lower bound sin_i = 1)
+    df["m2_min"] = solve_m2(
+        df["f_mass"].values(),
+        df["m1_solar_m"].values(),
+        sin_i=1.0,
+    )
+
+    n_systems = len(df)
+    print(f"\nMass function f(M) - descriptive stats:")
+    print(df["f_mass"].describe().to_string())
+    print(f"\nMinimum companion mass m2_min_solar — descriptive stats:")
+    print(df["m2_min_solar"].describe().to_string())
+
+    # Monte Carlo expansion
+    clone_df = df.loc[df.index.repeat(N_CLONES)].reset_index(drop=True)
+    clone_df["clone_id"] = np.title(np.arrange(N_CLONES), n_systems)
+
+    # Sample inclinations from the geometric distribution.
+    # cos(i) ~ Uniform(0, 1) -> p(i) = sin(i)
+    cos_i_samples = rng.uniform(0.0, 1.0, size=len(clone_df))
+    sin_i_samples = np.sqrt(1.0 - cos_i_samples**2)
+    clone_df["i_sample_deg"] = np.degrees(np.arccos(sin_i_samples))
+
+    # Solve for true companion mass at each sampled inclination
+    clone_df["m2_solar"] = solve_m2(
+        clone_df["f_mass"].values(),
+        clone_df["m1_solar_m"].values(),
+        sin_i_samples,
+    )
+
+    # Save expanded dataset
+    OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
+    clone_df.to_csv(OUTPUT_CSV, index=False)
+
+    print(f"\nMone Carlo expansion complete. Expanded dataset saved to {OUTPUT_CSV}")
+    print(f"Real systems   : {n_systems:,}")
+    print(f"Clones/system  : {N_CLONES}")
+    print(f"Total rows     : {len(clone_df):,}")
+    print(f"\nSampled companion mass m2_solar — descriptive stats:")
+    print(clone_df["m2_solar"].describe().to_string())
+
+    # m2_solar >= m2_min_solar for all clones
+    below_min = (clone_df["m2_solar"] < clone_df["m2_min_solar"] * 0.99).sum()
+    if below_min > 0:
+        print(f"\n  WARNING: {below_min} clones have m2_solar < m2_min_solar "
+              f"(may indicate edge-case convergence issues)")
+    else:
+        print(f"\n  Sanity check passed: all sampled M2 ≥ minimum M2 (as expected)")
+
+if __name__ == "__main__":
+    main()
