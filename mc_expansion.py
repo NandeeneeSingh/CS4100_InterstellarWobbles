@@ -3,18 +3,18 @@ import pandas as pd
 from pathlib import Path
 
 # Parameters for Monte Carlo expansion
-N_CLONES = 100      # Clones / actual system
+N_CLONES = 100     
 RANDOM_SEED = 42    
 FP_ITER = 80        # fixed point iterations
-MIN_SIN_I = 1e-3    # face-on singulary prevention (i < ~0.06°)
+MIN_SIN_I = 1e-3    # to avoid division by zero in face-on situation
 
-# Use a consistent conversion constant for mass function calculations (K1 in km/s, P in days → f in solar masses)
-# Necessary since the data we are using is not in SI units, but the physics equations are. 
-K1 = 10**3 # convert km/s to m/s
-P = 86400  # convert days to seconds
-G = 6.674e-11 # gravitational constant - m^3/kg/s^2
-M_SUN = 1.989e30 # solar mass in kg
+# Conversion data for constant equation
+K1 = 10**3          # km/s to m/s
+P = 86400           # days to seconds
+G = 6.674e-11       # gravitational constant - m^3/kg/s^2
+M_SUN = 1.989e30    # solar mass (kg)
 
+# Conversion constant to convert mass function to solar masses. 
 CONVERSION_CONSTANT = (K1**3 * P) / (2 * np.pi * G * M_SUN) # ≈ 1.0385e-7
 
 INPUT_CSV  = Path("data/03_physics_anchored/with_m1_sb1_cleaned.csv")
@@ -24,8 +24,8 @@ CORE_FEATURES = [
     "source_id",
     "period",
     "eccentricity",
-    "semi_amplitude_primary",   # K1 (km/s) — radial velocity amplitude
-    "m1_solar_m",       # primary mass estimate (solar masses)
+    "semi_amplitude_primary",  
+    "m1_solar_m",
 ]
 
 # Physics equation helpers

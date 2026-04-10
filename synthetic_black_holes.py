@@ -23,8 +23,6 @@ CORE_FEATURES = [
     "source_id", "period", "eccentricity", "m1_solar_m",
 ]
 
-# Physics helpers (from mc_expansion.py)
-
 def solve_m2_min(f_mass, m1, sin_i=1.0, n_iter=FP_ITER):
     """
     Solve for minimum companion mass M2 [M_sun] via fixed-point iteration.
@@ -44,14 +42,14 @@ def main():
         raise FileNotFoundError(f"Input file not found: {INPUT_CSV}")
     
     # Load the authenitc SB1 orbital data
-    df = pd.read_csv(INPUT_CSV, usecols=lambda c: c in set(CORE_FEATURES))
+    df = pd.read_csv(INPUT_CSV, usecols=lambda col: col in set(CORE_FEATURES))
     df = df[CORE_FEATURES].dropna().copy()
     n_systems = len(df)
 
     print(f"Loaded {n_systems} real SB1 systems (P, e, M1)")
 
     # Synethesize black holes
-    df = df.copy() # seperate object
+    df = df.copy()
     df["source_id"] = df["source_id"].astype(str)
     df.loc[:, "m2_true"] = rng.uniform(BH_MASS_MIN, BH_MASS_MAX, size=n_systems)
     df.loc[:, "source_id"] = "SYNTH_BH_" + df["source_id"]
@@ -82,9 +80,8 @@ def main():
     # Backward physics: Anchor targets m2_min and f_mass
     clone_df.loc[:, "f_mass"] = f_true
     clone_df.loc[:, "m2_min_solar"] = solve_m2_min(f_true, m1)
-    clone_df.loc[:, "m2_solar"] = clone_df["m2_true"] # Actual injected mass
+    clone_df.loc[:, "m2_solar"] = clone_df["m2_true"] 
 
-    # Save 
     keep_cols = [
         "source_id", "period", "eccentricity", "semi_amplitude_primary",
         "m1_solar_m", "f_mass", "m2_min_solar", "clone_id", "i_sample_deg", "m2_solar"
