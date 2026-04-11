@@ -66,7 +66,7 @@ systems.loc[bad, "confidence"] = 1.0
 results = systems[bad | (systems["confidence"] >= 0.85)].copy()
 results = results.sort_values("high_mass_prob", ascending=False)
 
-results.to_csv("data/04_categorized/sb1_inferred_probabilities.csv", index=False)
+results.to_csv("data/05_results/final_master_catalogue.csv", index=False)
 
 print(f"\n{len(results):,} systems written")
 print(results["predicted_class"].value_counts().to_string())
