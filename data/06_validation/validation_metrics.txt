@@ -1,0 +1,39 @@
+=== Original 3-Class Evaluation ===
+Accuracy: 0.5667733488507419
+
+Classification Report:
+                         precision    recall  f1-score   support
+
+     (0) Min_Mass_<_1.4       1.00      0.56      0.71      2510
+(1) Min_Mass_1.4_to_3.0       0.24      0.47      0.32       600
+     (2) Min_Mass_>_3.0       0.31      0.82      0.45       327
+
+               accuracy                           0.57      3437
+              macro avg       0.52      0.62      0.50      3437
+           weighted avg       0.80      0.57      0.62      3437
+
+
+Confusion Matrix:
+[[1394  836  280]
+ [   2  285  313]
+ [   0   58  269]]
+
+==================================================
+=== Grouped Binary Evaluation (0 & 1 vs 2) ===
+==================================================
+Accuracy: 0.8105906313645621
+
+Classification Report:
+                       precision    recall  f1-score   support
+
+(0+1) Min_Mass_<=_3.0       0.98      0.81      0.89      3110
+   (2) Min_Mass_>_3.0       0.31      0.82      0.45       327
+
+             accuracy                           0.81      3437
+            macro avg       0.64      0.82      0.67      3437
+         weighted avg       0.91      0.81      0.84      3437
+
+
+Confusion Matrix:
+[[2517  593]
+ [  58  269]]

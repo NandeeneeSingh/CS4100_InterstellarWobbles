@@ -97,7 +97,7 @@ def main():
     # cos(i) ~ Uniform(0, 1) -> p(i) = sin(i)
     cos_i_samples = rng.uniform(0.0, 1.0, size=len(clone_df))
     sin_i_samples = np.sqrt(1.0 - cos_i_samples**2)
-    clone_df["i_sample_deg"] = np.degrees(np.arccos(sin_i_samples))
+    clone_df["i_sample_deg"] = np.degrees(np.arccos(cos_i_samples))
 
     # Solve for true companion mass at each sampled inclination
     clone_df["m2_solar"] = solve_m2(

@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     # train 
     print("\nstarting training phase...")
-    rf = RandomForest(n_trees=50, max_depth=12, n_features=2, min_samples_split=10)
+    rf = RandomForest(n_trees=15, max_depth=12, min_samples_split=2)
     rf.fit(X_train, y_train)
     print("training complete!")
 
