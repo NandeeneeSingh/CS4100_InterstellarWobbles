@@ -43,13 +43,14 @@ if __name__ == "__main__":
 
     try:
         df_real = pd.read_csv("data/03_physics_anchored/sb1_mc_expanded.csv", usecols=cols)
-        df_synth = pd.read_csv("data/03_physics_anchored/synthetic_bh_mc_expanded.csv", usecols=cols)
+        df_synth_bh = pd.read_csv("data/03_physics_anchored/synthetic_bh_mc_expanded.csv", usecols=cols)
+        df_synth_ns = pd.read_csv("data/03_physics_anchored/synthetic_ns_mc_expanded.csv", usecols=cols)
     except FileNotFoundError:
         print("Error: Couldn't find the csv files")
         exit()
 
     # combine both datasets together
-    df = pd.concat([df_real, df_synth], ignore_index=True)
+    df = pd.concat([df_real, df_synth_bh, df_synth_ns], ignore_index=True)
     
     print("applying target shift...")
     df["target"] = df["m2_solar"].apply(get_mass_bucket)
