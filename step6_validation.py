@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 import pickle
 
-from step3_custom_ml import CustomRandomForest, DecisionTree, Node
+from random_forest import RandomForest as CustomRandomForest
 
 N_CLONES = 100
 RANDOM_SEED = 42
@@ -99,8 +99,8 @@ def validate_sb2(rf: CustomRandomForest):
     print(f"  Artifact saved: {OUTPUT_DIR / 'validation_sb2.csv'}")
 
 def main():
-    
-    model_path = Path("data/03_physics_anchored/custom_rf_model.pkl")
+
+    model_path = Path("data/03_physics_anchored/rf_model.pkl")
     # Error handling to ensure model exists before validation
     if not model_path.exists():
         raise FileNotFoundError(f"Model not found at {model_path}. Train and save model before validation.")
