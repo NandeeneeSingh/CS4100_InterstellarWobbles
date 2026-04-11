@@ -71,15 +71,15 @@ def main():
 
     # Compute binary mass function for each system
     df["f_mass"] = compute_mass_function(
-        df["semi_amplitude_primary"].values(),
-        df["period"].values(),
-        df["eccentricity"].values(),
+        df["semi_amplitude_primary"].values,
+        df["period"].values,
+        df["eccentricity"].values,
     )
 
     # Minimum companion mass (conservative lower bound sin_i = 1)
-    df["m2_min"] = solve_m2(
-        df["f_mass"].values(),
-        df["m1_solar_m"].values(),
+    df["m2_min_solar"] = solve_m2(
+        df["f_mass"].values,
+        df["m1_solar_m"].values,
         sin_i=1.0,
     )
 
@@ -91,7 +91,7 @@ def main():
 
     # Monte Carlo expansion
     clone_df = df.loc[df.index.repeat(N_CLONES)].reset_index(drop=True)
-    clone_df["clone_id"] = np.title(np.arrange(N_CLONES), n_systems)
+    clone_df["clone_id"] = np.tile(np.arange(N_CLONES), n_systems)
 
     # Sample inclinations from the geometric distribution.
     # cos(i) ~ Uniform(0, 1) -> p(i) = sin(i)
@@ -101,8 +101,8 @@ def main():
 
     # Solve for true companion mass at each sampled inclination
     clone_df["m2_solar"] = solve_m2(
-        clone_df["f_mass"].values(),
-        clone_df["m1_solar_m"].values(),
+        clone_df["f_mass"].values,
+        clone_df["m1_solar_m"].values,
         sin_i_samples,
     )
 
