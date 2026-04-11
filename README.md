@@ -34,3 +34,5 @@ To prove the efficacy of the pipeline, the final AI-cleaned catalog is cross-ref
 
 
 `Python version 3.14.0`
+
+# Update: Final Validation Results included (Merging errors)
